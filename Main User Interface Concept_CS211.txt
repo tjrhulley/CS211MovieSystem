@@ -1,0 +1,12 @@
+Main user interface concept plan:
+
+Scanner with printed line asking “What would you like to do? CHOICES: 
+	Buy ticket 
+		Prints movie choices for the day, creates customer object
+		Returns the showtime and theater options for the chosen movie 
+	Create theater
+		Leads to creating theater object, choice for handicap or not
+	Create worker 
+		Leads to adding a new worker that can make changes/access more than customer
+	Cancel ticket
+		Leads to cancelling ticket associated with a specific customer object 
