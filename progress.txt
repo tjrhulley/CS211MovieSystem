@@ -3,7 +3,7 @@ our program will be organized (what methods refer to which classes) and what eac
 
 Timothy is working on the theater creation system of the program. When this system is finished, users (as in managers) will be able to add new movie theaters 
 to the system and configure the layout of each room in the theater. A few different class objects have been created, including a (currently incomplete) method 
-that automatically creates rooms with specified seat layouts (including handicaped spots). 
+that automatically creates rooms with specified seat layouts (including handicapped spots). 
 
 Sara is working on the user interface for the program, as well as the theater objects which contain information about a movie the theater will be playing. 
 She is almost finished writing a plan for how the user interface will be handled, and will write the code for it as soon as she is done.
