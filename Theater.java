@@ -26,6 +26,12 @@ public class Theater {
 		roomList.add(new Room());
 	}
 	
+	//Copys the layout of one room and puts it into a new one
+	//Will need to read every room from the one that is being copied, and then make new rooms in it with the same layout
+	public void copyRoom(Room room) {
+		
+	}
+	
 	public void deleteRoom(int room) {
 		roomList.remove(room);
 	}
