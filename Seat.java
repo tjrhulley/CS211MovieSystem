@@ -13,8 +13,35 @@ public class Seat {
 		return name;
 	}
 	
+	//MIGHT REPLACE WITH toggleTaken. LEAVING THIS HERE
+	public void setTaken(boolean isTaken) {
+		this.isTaken = isTaken;
+	}
+	
+	public void toggleTaken() {
+		if(isTaken) {
+			isTaken = false;
+		} else {
+			isTaken = true;
+		}
+		return;
+	}
+	
 	public boolean isTaken() {
 		return isTaken;
+	}
+	
+	public void toggleDisabled() {
+		if(isDisabled) {
+			isDisabled = false;
+		} else {
+			isDisabled = true;
+		}
+		return;
+	}
+	
+	public boolean isDisabled() {
+		return isDisabled;
 	}
 	
 	public String toString() {

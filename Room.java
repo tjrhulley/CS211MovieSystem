@@ -6,9 +6,26 @@ public class Room {
 	//private ArrayList<Showing> showingList = new ArrayList<Showing>();
 	private Scanner scnr;
 	
+	/* Will likely need to delete later
+	public Room () {
+		SeatCreator sc = new SeatCreator(this);
+		sc.init();
+		this.seatList = sc.getSeatList();
+		this.name = sc.getName();
+	}
+	
 	public Room (String name){
 		this.name = name;
-		RoomCreationConcept();
+		//RoomCreationConcept();
+		SeatCreator sc = new SeatCreator(this);
+		sc.init();
+		this.seatList = sc.getSeatList();
+	}
+	*/
+	
+	public Room (String name, Seat[][] seatList) {
+		this.name = name;
+		this.seatList = seatList;
 	}
 	
 	public void RoomCreationConcept () {
@@ -89,6 +106,14 @@ public class Room {
 		}
 		
 		System.out.println("Room saved as " + name);
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setSeatList(Seat[][] seatList) {
+		this.seatList = seatList;
 	}
 	
 	public String getName() {

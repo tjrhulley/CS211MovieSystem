@@ -1,6 +1,9 @@
+import javax.swing.JFrame;
 
 public class Tester {
 	public static void main(String args[]) {
-		Room rm = new Room("Room T");
+		
+		Theater rm = new Theater();
+		rm.addRoom();
 	}
 }
