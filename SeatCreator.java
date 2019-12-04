@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+//GUI for adding a new room to a theater. 
 public class SeatCreator extends JFrame {
 	ArrayList<Room> rl;
 	JFrame jf;
@@ -136,7 +137,7 @@ public class SeatCreator extends JFrame {
 			System.out.println("Created row " + i);
 		}
 		
-		jf.setSize(600 + (rowNum * 20), 500 + (rowNum * 20));
+		jf.setSize(600 + (colNum * 30), 500 + (rowNum * 20));
 		jf.setVisible(true);
 		
 		return;
@@ -147,21 +148,24 @@ public class SeatCreator extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource().equals(btGenerate)) {
-				//Check if fields are empty. Maybe make this an exception
-				if (txRows.getText().equals("") || txCols.getText().equals("")) {
-					System.out.println("Error. One or more text fields is empty.");
-					JOptionPane.showMessageDialog(rootPane, "One or more text fields is empty.");
-					return;
-				}
-				
-				// Check if the last two fields have only numbers
+				// Check if the last two fields are empty and have only numbers
 				try {
-				     Integer.parseInt(txRows.getText());
-				     Integer.parseInt(txCols.getText());
+					if (txRows.getText().equals("") || txCols.getText().equals("")) {
+						throw new NullPointerException();
+					}
+					Integer.parseInt(txRows.getText());
+				    Integer.parseInt(txCols.getText());
 				}
 				catch (NumberFormatException d) {
 					d.getMessage();
+					System.out.println("Error. Row or column fields do not contain letters.");
 					JOptionPane.showMessageDialog(rootPane, "Rows and Columns fields can only contain numbers.");
+					return;
+				}
+				catch (NullPointerException d) {
+					d.getMessage();
+					System.out.println("Error. One or more text fields is empty.");
+					JOptionPane.showMessageDialog(rootPane, "One or more text fields is empty.");
 					return;
 				}
 				
@@ -170,13 +174,11 @@ public class SeatCreator extends JFrame {
 			} else if(e.getSource().equals(btSave)) {
 				//Save and return the seatList
 				//Check if fields are empty. Maybe make this an exception
-				if (txName.getText().equals("")) {
-					System.out.println("Please enter a name for the room.");
-					JOptionPane.showMessageDialog(rootPane, "Please enter a name for the room.");
-					return;
-				}
 				
 				try {
+					if (txName.getText().equals("")) {
+						throw new IllegalArgumentException();
+					}
 					if (seatList.length == 0) {
 						
 					}
@@ -188,9 +190,16 @@ public class SeatCreator extends JFrame {
 					return;
 					//Close the window
 				}
+				catch (IllegalArgumentException d) {
+					d.getMessage();
+					System.out.println("Error. Name field is empty.");
+					JOptionPane.showMessageDialog(rootPane, "Please enter a name for the room.");
+					return;
+				}
 				catch (NullPointerException d) {
 					d.getMessage();
-					JOptionPane.showMessageDialog(rootPane, "Error. Room cannot be saved until seat layout has been generated.");
+					System.out.println("Error. Room not yet generated");
+					JOptionPane.showMessageDialog(rootPane, "Room cannot be saved until seat layout has been generated.");
 					return;
 				}
 			} else if(e.getSource().equals(btCancel)) {

@@ -54,7 +54,7 @@ public class Seat {
 		}
 		
 		if (isTaken) {
-			str.replace(" ", "X"); //Maybe str = str.replace?
+			str = str.replace(" ", "X"); //Maybe str = str.replace?
 		}
 		
 		return str;
