@@ -86,6 +86,10 @@ public class Theater {
 		return phoneNumber;
 	}
 	
+	public ArrayList<Room> getRoomList() {
+		return roomList;
+	}
+	
 	//End dump
 	
 	public String toString() {
