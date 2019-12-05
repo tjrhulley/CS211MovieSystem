@@ -35,7 +35,7 @@ public class MainFrame extends JFrame{
 	protected ArrayList<String> employeeList = new ArrayList<String>();
 	protected ArrayList<String> managerList = new ArrayList<String>();
 	protected ArrayList<String> movieList = new ArrayList<String>();
-	protected ArrayList<Integer> confirmationNums = new ArrayList<Integer>();
+	protected ArrayList<Double> confirmationNums = new ArrayList<Double>();
 	private int theaterCount;
 	Object[] possibilities = {'1', '2', '3', '4'};
 	public MainFrame(String title) {
@@ -120,7 +120,7 @@ public class MainFrame extends JFrame{
 											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
 													"ERROR", JOptionPane.ERROR_MESSAGE);
 										}	 
-								int confirmation = (int) Math.random();
+								double confirmation = Math.random() + 80;
 								confirmationNums.add(confirmation);
 								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
 							}
@@ -132,7 +132,7 @@ public class MainFrame extends JFrame{
 											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
 													"ERROR", JOptionPane.ERROR_MESSAGE);
 										}	 
-								int confirmation = (int) Math.random();
+								double confirmation =  Math.random() + 50;
 								confirmationNums.add(confirmation);
 								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
 							}
@@ -144,7 +144,7 @@ public class MainFrame extends JFrame{
 											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
 													"ERROR", JOptionPane.ERROR_MESSAGE);
 										}	 
-								int confirmation = (int) Math.random();
+								double confirmation = Math.random() + 20;
 								confirmationNums.add(confirmation);
 								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
 							}
@@ -186,7 +186,14 @@ public class MainFrame extends JFrame{
 										if (selection == "Cancel Ticket") {
 											String confirmation = (String)JOptionPane.showInputDialog(c, "Enter ticket confirmation code:\n", 
 													"Cancel Customer Ticket", JOptionPane.PLAIN_MESSAGE, null, null, "");
-													JOptionPane.showMessageDialog(null,  "Ticket Successfully Cancelled");
+													if (confirmationNums.contains(confirmation)) {
+														confirmationNums.remove(confirmation);
+														JOptionPane.showMessageDialog(null,  "Ticket Successfully Cancelled");
+													}
+													else {
+													JOptionPane.showMessageDialog(new JFrame(), "Code Does Not Exist, Please Try Again", 
+															"ERROR", JOptionPane.ERROR_MESSAGE);
+													}
 										}
 										else if (selection == "View Confirmation Codes") {
 											JOptionPane.showMessageDialog(null, Arrays.deepToString(confirmationNums.toArray()));
