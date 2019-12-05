@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class Theater {
 	private String name;
 	private String address;
 	private String phoneNumber;
 	private ArrayList<Room> roomList = new ArrayList<Room>();
+	private JFrame jf = new JFrame();
 	
 	//TESTER METHOD DELETE LATER
 	public Theater(Room rm) {
@@ -55,9 +59,20 @@ public class Theater {
 		
 	}
 	
-	public void addMovie(Room rm) {
-		MovieCreator mc = new MovieCreator(rm);
-		mc.init();
+	public void addMovie() {
+		try {
+			if (roomList.isEmpty()) {
+				throw new NullPointerException();
+			}
+			MovieCreator mc = new MovieCreator(roomList.get(roomList.size() - 1));
+			mc.init();
+		}
+		catch (NullPointerException d) {
+			d.getMessage();
+			System.out.println("Error. No rooms in theater");
+			JOptionPane.showMessageDialog(jf, "There is no rooms in the theater. Please add one before assigning a movie.");
+			return;
+		}
 	}
 	
 	// Dump for setters and getters
