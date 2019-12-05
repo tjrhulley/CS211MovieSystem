@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 //GUI for adding a new room to a theater. 
 public class SeatCreator extends JFrame {
 	ArrayList<Room> rl;
+	int seatNum;
 	JFrame jf;
 	JLabel lb1;
 	JLabel lbName;
@@ -137,6 +138,8 @@ public class SeatCreator extends JFrame {
 			System.out.println("Created row " + i);
 		}
 		
+		seatNum = rowNum * colNum;
+		
 		jf.setSize(600 + (colNum * 30), 500 + (rowNum * 20));
 		jf.setVisible(true);
 		
@@ -182,7 +185,7 @@ public class SeatCreator extends JFrame {
 					if (seatList.length == 0) {
 						
 					}
-					rl.add(new Room(txName.getText(),seatList));
+					rl.add(new Room(txName.getText(),seatList,seatNum));
 					JOptionPane.showMessageDialog(rootPane, "Room layout successfully saved.");
 					System.out.println(rl.toString());
 					jf.dispose();

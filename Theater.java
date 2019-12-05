@@ -4,9 +4,15 @@ public class Theater {
 	private String name;
 	private String address;
 	private String phoneNumber;
-	//Prices?
 	private ArrayList<Room> roomList = new ArrayList<Room>();
-	private ArrayList<Booking> bookingList = new ArrayList<Booking>();
+	
+	//TESTER METHOD DELETE LATER
+	public Theater(Room rm) {
+		name = "DEFAULT_THEATER_NAME";
+		address = "DEFAULT_THEATER_ADDRESS";
+		phoneNumber = "555-0000";
+		roomList.add(rm);
+	}
 	
 	//Maybe add a int application so that the number of rooms in it can be specified
 	public Theater(String name, String address, String phoneNumber) {
@@ -27,10 +33,14 @@ public class Theater {
 		sc.init();
 	}
 	
-	//Copys the layout of one room and puts it into a new one
+	public void editRoom() {
+		
+	}
+	
+	//Copies the layout of one room and puts it into a new one
 	//Will need to read every room from the one that is being copied, and then make new rooms in it with the same layout
 	public void copyRoom(Room room) {
-		roomList.add(new Room(room.getName(), room.getSeatList()));
+		roomList.add(new Room(room.getName(), room.getSeatList(), room.getNumSeats()));
 	}
 	
 	public boolean deleteRoom(Room room) {
@@ -43,6 +53,11 @@ public class Theater {
 		
 		return false;
 		
+	}
+	
+	public void addMovie(Room rm) {
+		MovieCreator mc = new MovieCreator(rm);
+		mc.init();
 	}
 	
 	// Dump for setters and getters

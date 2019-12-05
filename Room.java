@@ -2,11 +2,15 @@
 public class Room {
 	private String name;
 	private Seat [][] seatList;
-	//private ArrayList<Showing> showingList = new ArrayList<Showing>();
+	private Movie movie;
+	private int maxSeats;
+	private int numSeats;
 	
-	public Room (String name, Seat[][] seatList) {
+	public Room (String name, Seat[][] seatList, int seats) {
 		this.name = name;
 		this.seatList = seatList;
+		this.maxSeats = seats;
+		this.numSeats = seats;
 	}
 	
 	public void setName(String name) {
@@ -17,12 +21,42 @@ public class Room {
 		this.seatList = seatList;
 	}
 	
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+	
+	public void addSeats() {
+		if (numSeats > maxSeats) {
+			System.out.println("Error. Maximum number of seats reached.");
+			return;
+		}
+		
+		numSeats++;
+	}
+	
+	public void subtractSeats() {
+		if (numSeats < 0) {
+			System.out.println("Error. All seats have been taken.");
+			return;
+		}
+		
+		numSeats--;
+	}
+	
 	public String getName() {
 		return name;
 	}
 	
 	public Seat[][] getSeatList() {
 		return seatList;
+	}
+	
+	public Movie getMovie() {
+		return movie;
+	}
+	
+	public int getNumSeats() {
+		return numSeats;
 	}
 	
 	public String toString() {
@@ -37,6 +71,9 @@ public class Room {
 			
 			str += "\n";
 		}
+		
+		str += "Movie currently showing is  " + movie + ". \n";
+		str += "Number of available seats: " + numSeats + "\n";
 		
 		return str;
 	}
