@@ -152,8 +152,8 @@ public class MainFrame extends JFrame{
 						}
 						else if (selection == "Cancel Ticket") {
 							//ASK FOR CONFIRMATION NUMBER AND CHECK ARRAYLIST IF IT IS THERE 
-							String confirmation = (String)JOptionPane.showInputDialog(c, "Enter ticket confirmation number:\n", 
-									"Ticket Confirmation", JOptionPane.PLAIN_MESSAGE, null, null, "");
+							JOptionPane.showMessageDialog(new JFrame(), "Please see Customer Services", 
+									"ERROR", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
@@ -178,7 +178,7 @@ public class MainFrame extends JFrame{
 						"Password", JOptionPane.PLAIN_MESSAGE, null, null, "");
 				//check if employee password is correct 
 							if (employeePass.contentEquals("employee")) {
-								Object[] options = {"   ", "Cancel Ticket"};
+								Object[] options = {"   ", "Cancel Ticket", "View Confirmation Codes"};
 								String initialSelection = "   ";
 								Object selection = JOptionPane.showInputDialog(null, "What would you like to do?", 
 										"Employee Options", JOptionPane.QUESTION_MESSAGE, null, 
@@ -187,6 +187,9 @@ public class MainFrame extends JFrame{
 											String confirmation = (String)JOptionPane.showInputDialog(c, "Enter ticket confirmation code:\n", 
 													"Cancel Customer Ticket", JOptionPane.PLAIN_MESSAGE, null, null, "");
 											JOptionPane.showMessageDialog(null,  "Ticket Successfully Cancelled");
+										}
+										if (selection == "View Confirmation Codes") {
+											JOptionPane.showMessageDialog(null, Arrays.deepToString(confirmationNums.toArray()));
 										}
 										else {
 											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
@@ -285,8 +288,7 @@ public class MainFrame extends JFrame{
 											Room rm = new Room ("ROOM", dave, 10);
 											Theater th = new Theater(rm);
 											th.addMovie(rm);
-											
-											
+									
 											
 										}
 										else if (selection == "View Current Movies") {
@@ -307,8 +309,9 @@ public class MainFrame extends JFrame{
 ////											}
 											//JLabel movie = new JLabel(myImageIcon);
 											//movie.add(myImageIcon);
-											JOptionPane.showMessageDialog(new JFrame(), "No Movies Yet",
-													"ERROR", JOptionPane.ERROR_MESSAGE);
+											JOptionPane.showMessageDialog(null,  "Shrek, Finding Nemo, Penguins of Madagascar");
+											//JOptionPane.showMessageDialog(new JFrame(), "No Movies Yet",
+													//"ERROR", JOptionPane.ERROR_MESSAGE);
 											//JOptionPane.showMessageDialog(null, "Employee Successfully Created");
 											
 										}
