@@ -239,7 +239,7 @@ public class MainFrame extends JFrame{
 													"Enter First and Last Name", JOptionPane.OK_CANCEL_OPTION);
 												
 											//add new employee first and last name to the arraylist
-													employeeList.add(first.getText() + " " + last.getText());
+													employeeList.add(first.getText() + " " + last.getText() + "\n");
 													//JLabel trial = new JLabel(); 
 													JOptionPane.showMessageDialog(null, "Employee Successfully Created");
 											//employee list somewhere 
@@ -275,8 +275,8 @@ public class MainFrame extends JFrame{
 											Object newEmp = JOptionPane.showConfirmDialog(null, manPanel, 
 													"Enter First and Last Name", JOptionPane.OK_CANCEL_OPTION);
 									
-											managerList.add(first.getText() + last.getText());
-											System.out.println(first.getText() + last.getText());
+											managerList.add(first.getText() + " " + last.getText()+ "\n");
+											//System.out.println(first.getText() +" " + last.getText());
 											JOptionPane.showMessageDialog(null, "Manager Successfully Created");
 										}
 										else if (selection == "Show Current Managers") {
