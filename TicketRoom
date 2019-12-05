@@ -1,0 +1,66 @@
+
+public class TicketRoom extends Room {
+	String name;
+	Seat [][] seatList;
+	int seats;
+	int numRows;
+	int numCols;
+	Boolean [][] taken;
+	int x;
+	int y;
+
+	public TicketRoom(String name, Seat[][] seatList, int seats, int numRows, int numCols) {
+		super(name, seatList, seats, numRows, numCols);
+		taken = new Boolean[numRows][numCols];
+		this.x = numRows;
+		this.y = numCols;
+	}
+	public TicketRoom() {
+		seatList = super.seatList;
+		x = super.numRows;
+		y = super.numCols;
+		taken = new Boolean[x][y];
+	}
+	public Boolean[][] getTaken() {
+		return taken;
+	}
+	
+	public void setTaken(int x, int y) {
+		taken[x][y] = true;
+	}
+	public boolean isTaken(int x, int y) {
+		return taken[x][y];
+	}
+	public int getX() {
+		return this.x;
+	}
+	public int getY() {
+		return this.y;
+	}
+	
+	public void createRoom() {
+		BookingCreator bc = new BookingCreator(taken, x, y);
+		bc.init();
+	}
+	
+	public void refund(int x, int y) {
+		if(taken[x][y] = false) {
+			System.out.println("Seat is not taken");
+		}
+		else{
+			taken[x][y] = false;
+		}
+	}
+	public String toString(int x, int y){
+		String str = "";
+		if (isTaken(x,y)) {
+			str = "[X]";
+		}
+		else {
+			str = "[ ]";
+		}
+		return str;
+	}
+	
+
+}
