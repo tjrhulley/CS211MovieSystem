@@ -186,9 +186,9 @@ public class MainFrame extends JFrame{
 										if (selection == "Cancel Ticket") {
 											String confirmation = (String)JOptionPane.showInputDialog(c, "Enter ticket confirmation code:\n", 
 													"Cancel Customer Ticket", JOptionPane.PLAIN_MESSAGE, null, null, "");
-											JOptionPane.showMessageDialog(null,  "Ticket Successfully Cancelled");
+													JOptionPane.showMessageDialog(null,  "Ticket Successfully Cancelled");
 										}
-										if (selection == "View Confirmation Codes") {
+										else if (selection == "View Confirmation Codes") {
 											JOptionPane.showMessageDialog(null, Arrays.deepToString(confirmationNums.toArray()));
 										}
 										else {
