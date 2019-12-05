@@ -3,6 +3,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 
@@ -32,6 +34,9 @@ public class MainFrame extends JFrame{
 	private JPasswordField passwordField;
 	protected ArrayList<String> employeeList = new ArrayList<String>();
 	protected ArrayList<String> managerList = new ArrayList<String>();
+	protected ArrayList<String> movieList = new ArrayList<String>();
+	protected ArrayList<Integer> confirmationNums = new ArrayList<Integer>();
+	private int theaterCount;
 	Object[] possibilities = {'1', '2', '3', '4'};
 	public MainFrame(String title) {
 		super(title);
@@ -94,7 +99,56 @@ public class MainFrame extends JFrame{
 						"Customer Options", JOptionPane.QUESTION_MESSAGE, null, 
 						options, initialSelection);
 						if (selection== "Buy Ticket") {
-							JOptionPane.showMessageDialog(null,  "TBD");
+							//JOptionPane.showMessageDialog(null,  "TBD");
+							//creating movie panel 
+							JPanel movPan = new JPanel();
+							JRadioButton j1 = new JRadioButton("Shrek"); 
+							JRadioButton j2 = new JRadioButton("Finding Nemo");
+							JRadioButton j3 = new JRadioButton("Penguins of Madagascar");
+							movPan.add(j1);
+							movPan.add(j2);
+							movPan.add(j3);
+							//display movie options 
+							Object newEmp = JOptionPane.showConfirmDialog(null, movPan, 
+									"Movie Options", JOptionPane.OK_CANCEL_OPTION);
+							Object[] opts = {"   ", "9:00am", "3:00pm", "9:00pm"};
+							if (j1.isSelected()) {
+								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
+										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+	
+										if (select == opts[0]) {
+											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
+													"ERROR", JOptionPane.ERROR_MESSAGE);
+										}	 
+								int confirmation = (int) Math.random();
+								confirmationNums.add(confirmation);
+								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
+							}
+							else if (j2.isSelected()) {
+								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
+										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+	
+										if (select == opts[0]) {
+											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
+													"ERROR", JOptionPane.ERROR_MESSAGE);
+										}	 
+								int confirmation = (int) Math.random();
+								confirmationNums.add(confirmation);
+								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
+							}
+							else if (j3.isSelected()){
+								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
+										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+	
+										if (select == opts[0]) {
+											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
+													"ERROR", JOptionPane.ERROR_MESSAGE);
+										}	 
+								int confirmation = (int) Math.random();
+								confirmationNums.add(confirmation);
+								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
+							}
+										
 						}
 						else if (selection == "Cancel Ticket") {
 							//ASK FOR CONFIRMATION NUMBER AND CHECK ARRAYLIST IF IT IS THERE 
@@ -124,8 +178,20 @@ public class MainFrame extends JFrame{
 						"Password", JOptionPane.PLAIN_MESSAGE, null, null, "");
 				//check if employee password is correct 
 							if (employeePass.contentEquals("employee")) {
-								JOptionPane.showMessageDialog(null, "Successful login");
-							}
+								Object[] options = {"   ", "Cancel Ticket"};
+								String initialSelection = "   ";
+								Object selection = JOptionPane.showInputDialog(null, "What would you like to do?", 
+										"Employee Options", JOptionPane.QUESTION_MESSAGE, null, 
+										options, initialSelection);
+										if (selection == "Cancel Ticket") {
+											String confirmation = (String)JOptionPane.showInputDialog(c, "Enter ticket confirmation code:\n", 
+													"Cancel Customer Ticket", JOptionPane.PLAIN_MESSAGE, null, null, "");
+											JOptionPane.showMessageDialog(null,  "Ticket Successfully Cancelled");
+										}
+										else {
+											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
+													"ERROR", JOptionPane.ERROR_MESSAGE);										}
+										}
 							else {
 								JOptionPane.showMessageDialog(new JFrame(), "Incorrect Password, Try Again", 
 										"ERROR", JOptionPane.ERROR_MESSAGE);
@@ -150,7 +216,7 @@ public class MainFrame extends JFrame{
 							if (managerPass.contentEquals("manager")) {
 								//JOptionPane.showMessageDialog(null, "Good job!");
 								Object[] options = {"   ", "Create Employee", "Show Current Employees", "Create Theater", 
-										"Show Current Theaters", "Create New Manager", "Show Current Managers", "View Current Movies"};
+										"Show Current Theaters", "Create New Manager", "Show Current Managers", "Add Movie", "View Current Movies"};
 								String initialSelection = "   ";
 								Object selection = JOptionPane.showInputDialog(null, "What would you like to do?", 
 										"Manager Options", JOptionPane.QUESTION_MESSAGE, null, 
@@ -184,10 +250,12 @@ public class MainFrame extends JFrame{
 											//direct to timothy code 
 											Theater rm = new Theater();
 											rm.addRoom();
+											theaterCount++;
 										}
 										
 										else if (selection == "Show Current Theaters") {
 											//display the arraylist made in timothy code 
+											JOptionPane.showMessageDialog(null, "Amount of theaters: " + theaterCount);
 										}
 										
 										else if (selection == "Create New Manager") {
@@ -209,7 +277,40 @@ public class MainFrame extends JFrame{
 											JOptionPane.showMessageDialog(null, "Manager Successfully Created");
 										}
 										else if (selection == "Show Current Managers") {
-											JOptionPane.showMessageDialog(null, Arrays.deepToString(employeeList.toArray()));
+											JOptionPane.showMessageDialog(null, Arrays.deepToString(managerList.toArray()));
+										}
+										else if(selection == "Add Movie") {
+											
+											Seat[][] dave = new Seat[5][3];
+											Room rm = new Room ("ROOM", dave, 10);
+											Theater th = new Theater(rm);
+											th.addMovie(rm);
+											
+											
+											
+										}
+										else if (selection == "View Current Movies") {
+											//JOptionPane.showMessageDialog(null, "Employee Successfully Created");
+											JPanel moviePan = new JPanel();
+									
+											//movie.setIcon(new ImageIcon(getClass().getResource("/resources/puppy.png")));
+											//try {
+//												Image myImage = ImageIO.read(getClass().getResource("/resources/puppy.png"));
+//												ImageIcon icon = createImageIcon(myImage);
+////												JLabel movie = new JLabel(myImageIcon);
+//												JButton btn = new JButton("yellow");
+//												//moviePan.add(movie);
+//												moviePan.add(btn);
+////											} catch (IOException e1) {
+////												// TODO Auto-generated catch block
+////												e1.printStackTrace();
+////											}
+											//JLabel movie = new JLabel(myImageIcon);
+											//movie.add(myImageIcon);
+											JOptionPane.showMessageDialog(new JFrame(), "No Movies Yet",
+													"ERROR", JOptionPane.ERROR_MESSAGE);
+											//JOptionPane.showMessageDialog(null, "Employee Successfully Created");
+											
 										}
 							}
 							else {
