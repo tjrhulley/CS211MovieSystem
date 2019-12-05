@@ -40,7 +40,7 @@ public class Theater {
 	//Copies the layout of one room and puts it into a new one
 	//Will need to read every room from the one that is being copied, and then make new rooms in it with the same layout
 	public void copyRoom(Room room) {
-		roomList.add(new Room(room.getName(), room.getSeatList(), room.getNumSeats()));
+		roomList.add(new Room(room.getName(), room.getSeatList(), room.getNumSeats(), room.getNumRows(), room.getNumColumns()));
 	}
 	
 	public boolean deleteRoom(Room room) {
