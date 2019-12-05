@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 public class SeatCreator extends JFrame {
 	ArrayList<Room> rl;
 	int seatNum;
+	int rowNum;
+	int colNum;
 	JFrame jf;
 	JLabel lb1;
 	JLabel lbName;
@@ -119,8 +121,8 @@ public class SeatCreator extends JFrame {
 	public void RoomCreationConceptWithGUI () {
 		
 		seatGrid.removeAll();
-		int rowNum = Integer.parseInt(txRows.getText());
-		int colNum = Integer.parseInt(txCols.getText());
+		rowNum = Integer.parseInt(txRows.getText());
+		colNum = Integer.parseInt(txCols.getText());
 		seatList = new Seat[rowNum][colNum];
 		seatButtonList = new JButton[rowNum][colNum];
 		GridLayout seatGridLayout = new GridLayout (rowNum, colNum);
@@ -185,7 +187,7 @@ public class SeatCreator extends JFrame {
 					if (seatList.length == 0) {
 						
 					}
-					rl.add(new Room(txName.getText(),seatList,seatNum));
+					rl.add(new Room(txName.getText(),seatList,seatNum,rowNum,colNum));
 					JOptionPane.showMessageDialog(rootPane, "Room layout successfully saved.");
 					System.out.println(rl.toString());
 					jf.dispose();

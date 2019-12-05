@@ -5,12 +5,16 @@ public class Room {
 	private Movie movie;
 	private int maxSeats;
 	private int numSeats;
+	private int numRows;
+	private int numCols;
 	
-	public Room (String name, Seat[][] seatList, int seats) {
+	public Room (String name, Seat[][] seatList, int seats, int numRows, int numCols) {
 		this.name = name;
 		this.seatList = seatList;
 		this.maxSeats = seats;
 		this.numSeats = seats;
+		this.numRows = numRows;
+		this.numCols = numCols;
 	}
 	
 	public void setName(String name) {
@@ -57,6 +61,14 @@ public class Room {
 	
 	public int getNumSeats() {
 		return numSeats;
+	}
+	
+	public int getNumRows() {
+		return numRows;
+	}
+	
+	public int getNumColumns() {
+		return numCols;
 	}
 	
 	public String toString() {
