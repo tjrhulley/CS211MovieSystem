@@ -120,9 +120,9 @@ public class MainFrame extends JFrame{
 											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
 													"ERROR", JOptionPane.ERROR_MESSAGE);
 										}	 
-								double confirmation = Math.random() + 80;
+								double confirmation = Math.random()*100000 ;
 								confirmationNums.add(confirmation);
-								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
+								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
 							}
 							else if (j2.isSelected()) {
 								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
@@ -132,9 +132,9 @@ public class MainFrame extends JFrame{
 											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
 													"ERROR", JOptionPane.ERROR_MESSAGE);
 										}	 
-								double confirmation =  Math.random() + 50;
+								double confirmation =  Math.random()*100000 ;
 								confirmationNums.add(confirmation);
-								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
+								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
 							}
 							else if (j3.isSelected()){
 								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
@@ -144,9 +144,9 @@ public class MainFrame extends JFrame{
 											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
 													"ERROR", JOptionPane.ERROR_MESSAGE);
 										}	 
-								double confirmation = Math.random() + 20;
+								double confirmation = Math.random()* 100000;
 								confirmationNums.add(confirmation);
-								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation);
+								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
 							}
 										
 						}
