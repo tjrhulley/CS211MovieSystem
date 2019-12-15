@@ -1,0 +1,52 @@
+
+public class Booking2 {
+	String roomName;
+	int movieTime;
+	boolean isTaken = false;
+	boolean isHandy = false;
+	
+	
+	public Booking2(String roomName, int movieTime) {
+		this.roomName = roomName;
+		this.movieTime = movieTime;
+	}
+	
+	public void setTaken(boolean isTaken) {
+		this.isTaken = isTaken;
+	}
+	
+	public void toggleTaken() {
+		if(isTaken) {
+			isTaken = false;
+		}
+		else {
+			isTaken = true;
+		}
+	}
+	public void setHandy(boolean handy) {
+		this.isHandy = handy;
+	}
+	
+	
+	public String toString() {
+		String str = "";
+			if(isHandy) {
+				if(isTaken) {
+					str = "{ }";
+				}
+				else {
+					str = "{O}";
+				}
+			}
+			else {
+				if(isTaken) {
+					str = "[ ]";
+				}
+				else {
+					str = "[O]";
+				}
+			}
+		return str;
+		
+	}
+}
