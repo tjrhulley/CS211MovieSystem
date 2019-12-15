@@ -104,6 +104,17 @@ public class Theater {
 		mc.init();
 	}
 	
+	public boolean deleteMovie(Movie movie) {
+		for (int i = 0; i < movieList.size(); i++) {
+			if (movieList.get(i) == movie) {
+				movieList.remove(i);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void assignMovie() {
 		try {
 			if (roomList.isEmpty() || movieList.isEmpty()) {
