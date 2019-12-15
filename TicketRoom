@@ -1,0 +1,42 @@
+
+public class TicketRoom {
+	String roomName;
+	int movieTime;
+	int x;
+	int y;
+	boolean[][] taken;
+	int claimed;
+	int seatLeft;
+	
+	public TicketRoom(String roomName, int movieTime, int x, int y) {
+		this.roomName = roomName;
+		this.movieTime = movieTime;
+		this.x = x;
+		this.y = y;
+		taken = new boolean[x][y];
+		claimed = 0;
+		seatLeft = x * y;
+	}
+	
+	//Check to see if seat is already booked by previous users
+	public boolean getTaken(int x, int y) {
+		return taken[x][y];
+	}
+	
+	//Marks seat as claimed after ticket purchase.
+	public void setTaken(int x, int y) {
+		taken[x][y] = true;
+		claimed++;
+		seatLeft--;
+	}
+	
+	public int getClaimed() {
+		return claimed;
+	}
+	
+	public int getSeatLeft() {
+		return seatLeft;
+	}
+	
+	
+}
