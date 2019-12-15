@@ -189,6 +189,10 @@ public class Theater {
 		return roomList;
 	}
 	
+	public ArrayList<Movie> getMovieList() {
+		return movieList;
+	}
+	
 	//End dump
 	
 	/**
