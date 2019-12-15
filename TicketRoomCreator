@@ -1,0 +1,94 @@
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+import SeatCreator.Handler;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+public class TicketRoomCreator extends JFrame {
+	Room rm;
+	JLabel lbl;
+	JLabel hlbl;
+	JTextField txlbl;
+	JTextField txhlbl;
+	JFrame jf;
+	JButton recSeat;
+	JButton btSave;
+	JButton btCancel;
+	Container seatGrid;
+	Seat Seatlist[][];
+	Handler hr = new Handler();
+	
+	TicketRoomCreator(Room rm){
+		this.rm = rm;
+		int row = rm.getNumRows();
+		int col = rm.getNumColumns();
+		
+		rm.toString();
+		lbl = new JLabel("Please enter how many normal tickets you would like: ");
+		
+	}
+	
+	public void init() {
+		jf = new JFrame();
+		jf.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		lbl = new JLabel("Please enter how many normal seats you would like: ");
+		hlbl = new JLabel("Please enter how many handycap seats you would like: ");
+		txlbl = new JTextField(15);
+		txhlbl = new JTextField(15);
+		recSeat = new JButton("Recommed Seating");
+		btSave = new JButton("Save");
+		btCancel = new JButton("Cancel");
+		seatGrid = getContentPane();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		recSeat.addActionListener(hr);
+		btSave.addActionListener(hr);
+		btCancel.addActionListener(hr);
+		jf.setSize(600, 500);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.setVisible(true);
+	}
+	
+	public class Handler implements ActionListener() {
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(recSeat)) {
+			try {
+				if(txlbl.getText().equals("") || txhlbl.getText().equals("")) {
+					throw new NullPointerException();
+					Integer.parseInt(txlbl.getText());
+				    Integer.parseInt(txhlbl.getText());
+				    return;
+				}
+			}
+				catch (NumberFormatException d) {
+					d.getMessage();
+					System.out.println("Error. Please enter number of tickets for both fields. Enter 0 if for no tickets.");
+					JOptionPane.showMessageDialog(rootPane, "Rows and Columns fields can only contain numbers.");
+					return;
+				}
+			}
+		}
+		
+	}
+
+	private void RoomCreationConceptWithGUI() {
+		for(int i = 0; i < rm.getNumRows();i++) {
+			for(int j = 0; j < rm.getNumColumns()) {
+				if()
+			}
+		
+	}
+}
