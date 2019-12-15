@@ -13,21 +13,32 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-//GUI for adding a new room to a theater. 
+/**
+ * GUI for adding a new room to a theater. 
+ * @author Timothy Hulley
+ *
+ */
 public class SeatCreatorV2 extends JFrame {
+	/**
+	 * The roomlist that a room will be added to if the user hits "Save"
+	 */
 	ArrayList<Room> rl;
+	/**
+	 * The current number of seats in the room
+	 */
 	int seatNum;
+	/**
+	 * The number of rows of seats
+	 */
 	int rowNum;
-	int colNum;
+	int colNum; //DELETE LATER IF IT WORKS
 	JFrame jf;
 	JLabel lb1;
 	JLabel lbName;
 	JLabel lbRows;
-	//JLabel lbCols;
 	JLabel lbDisa;
 	JTextField txName;
 	JTextField txRows;
-	//JTextField txCols;
 	JButton btRows;
 	JButton btGenerate;
 	JButton btSave;
@@ -44,6 +55,9 @@ public class SeatCreatorV2 extends JFrame {
 		this.rl = rl;
 	}
 	
+	/**
+	 * Initializes the user interface
+	 */
 	public void init() {
 		jf = new JFrame();
 		jf.setLayout(new GridBagLayout());
@@ -51,18 +65,15 @@ public class SeatCreatorV2 extends JFrame {
 		lb1 = new JLabel("Welcome to the room creation system! Enter the room information below!");
 		lbName = new JLabel("Room name:");
 		lbRows = new JLabel("Number of rows of seats:");
-		//lbCols = new JLabel("Number of columns of seats:");
 		lbDisa = new JLabel("Press Set Rows to display the number of rows in the room.");
 		txName = new JTextField(15);
 		txRows = new JTextField(15);
-		//txCols = new JTextField(15);
 		btRows = new JButton("Set Rows");
 		btGenerate = new JButton("Generate Room");
 		btSave = new JButton("Save Room");
 		btCancel = new JButton("Cancel");
 		sizeSetGrid = getContentPane();
 		seatGrid = getContentPane();
-		//c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 3;
@@ -84,7 +95,7 @@ public class SeatCreatorV2 extends JFrame {
 		c.gridx = 1;
 		c.gridy = 2;
 		jf.add(txRows, c);
-		c.gridx = 0;
+		c.gridx = 1;
 		c.gridy = 3;
 		jf.add(btRows, c);
 		c.gridx = 0;

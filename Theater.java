@@ -25,17 +25,23 @@ public class Theater {
 	 * A list of each room in the theater.
 	 */
 	private ArrayList<Room> roomList = new ArrayList<Room>();
+	private ArrayList<Movie> movieList = new ArrayList<Movie>();
+	
 	/**
 	 * A Jframe used for showing error messages during room management.
 	 */
 	private JFrame jf = new JFrame();
 	
 	//TESTER METHOD DELETE LATER
-	public Theater(Room rm) {
+	public Theater(Room r1, Room r2, Movie m1, Movie m2, Movie m3) {
 		name = "DEFAULT_THEATER_NAME";
 		address = "DEFAULT_THEATER_ADDRESS";
 		phoneNumber = "555-0000";
-		roomList.add(rm);
+		roomList.add(r1);
+		roomList.add(r2);
+		movieList.add(m1);
+		movieList.add(m2);
+		movieList.add(m3);
 	}
 
 	public Theater(String name, String address, String phoneNumber) {
@@ -54,14 +60,14 @@ public class Theater {
 	 * Calls a new SeatCreator object to add a room to the theater's roomList
 	 */
 	public void addRoom() {
-		SeatCreator sc = new SeatCreator(roomList);
-		sc.init();
-	}
-	
-	//TEST CLASS RENAME LATER
-	public void addRoomV2() {
-		SeatCreatorV2 sc = new SeatCreatorV2(roomList);
-		sc.init();
+		int choice = JOptionPane.showConfirmDialog(null, "Does the room have the same number of seats in each row?", "Choose an option", JOptionPane.YES_NO_OPTION);
+		if (choice == JOptionPane.YES_OPTION) {
+			SeatCreator sc = new SeatCreator(roomList);
+			sc.init();
+		} else {
+			SeatCreatorV2 sc = new SeatCreatorV2(roomList);
+			sc.init();
+		}
 	}
 	
 	/**
@@ -94,17 +100,22 @@ public class Theater {
 	 * Will not work if the theater has no rooms.
 	 */
 	public void addMovie() {
+		MovieCreator mc = new MovieCreator(movieList);
+		mc.init();
+	}
+	
+	public void assignMovie() {
 		try {
-			if (roomList.isEmpty()) {
+			if (roomList.isEmpty() || movieList.isEmpty()) {
 				throw new NullPointerException();
 			}
-			MovieCreator mc = new MovieCreator(roomList.get(roomList.size() - 1));
-			mc.init();
+			MovieAssigner ma = new MovieAssigner(roomList, movieList);
+			ma.init();
 		}
 		catch (NullPointerException d) {
 			d.getMessage();
 			System.out.println("Error. No rooms in theater");
-			JOptionPane.showMessageDialog(jf, "There is no rooms in the theater. Please add one before assigning a movie.");
+			JOptionPane.showMessageDialog(jf, "The theater needs to have at least one movie and room before it can assign them.");
 			return;
 		}
 	}

@@ -1,6 +1,7 @@
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -8,8 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class MovieCreator {
-	Room rm;
+public class MovieCreator extends JFrame{
+	ArrayList<Movie> ml;
 	JFrame jf;
 	JLabel lbName;
 	JLabel lbDescription;
@@ -25,8 +26,8 @@ public class MovieCreator {
 	JButton btCancel;
 	Handler hr = new Handler();
 	
-	public MovieCreator (Room rm) {
-		this.rm = rm;
+	public MovieCreator (ArrayList<Movie> ml) {
+		this.ml = ml;
 	}
 	
 	public void init() {
@@ -76,8 +77,8 @@ public class MovieCreator {
 						throw new NullPointerException();
 					}
 					
-					rm.setMovie(new Movie(txName.getText(),txDescription.getText(),txPrice.getText(),Integer.parseInt(txLength.getText()),txShowTime.getText()));
-					JOptionPane.showMessageDialog(jf, "Movie successfully saved to " + rm.getName() + ".");
+					ml.add(new Movie(txName.getText(),txDescription.getText(),txPrice.getText(),Integer.parseInt(txLength.getText()),txShowTime.getText()));
+					JOptionPane.showMessageDialog(jf, "Movie successfully saved.");
 
 					jf.dispose();
 					jf.setVisible(false);
