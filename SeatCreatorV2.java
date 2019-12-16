@@ -6,6 +6,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -268,6 +269,16 @@ public class SeatCreatorV2 extends JFrame {
 						
 					}
 					rl.add(new Room(txName.getText(),seatList,seatNum,rowNum,colNum));
+					
+					//ADDED THIS SECTION ----SARA 
+					String roomStr = "Theater name: " + txName.getText() + "\n" + 
+					"Handicap seating arrangement: " + Arrays.deepToString(seatList)+ "\n" +
+					"Seat Num: " + seatNum+ "\n" +
+					"Row Num: " + rowNum + "\n"+ 
+					"Column Num: " + colNum + "\n";
+					Utilities.writeToFile(roomStr, "/Users/sarashabon/Desktop/room.txt");
+					//end of new addition
+					
 					JOptionPane.showMessageDialog(rootPane, "Room layout successfully saved.");
 					System.out.println(rl.toString());
 					jf.dispose();

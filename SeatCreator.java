@@ -14,68 +14,50 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-/**
- * GUI for adding a new room to a theater. 
- * @author Timothy Hulley
- *
- */
+//GUI for adding a new room to a theater. 
 public class SeatCreator extends JFrame {
-	/**
-	 * The roomlist that a room will be added to if the user hits "Save"
-	 */
 	ArrayList<Room> rl;
-	/**
-	 * The current number of seats in the room
-	 */
 	int seatNum;
-	/**
-	 * The number of rows of seats
-	 */
 	int rowNum;
-	int colNum; //DELETE LATER IF IT WORKS
-
+	int colNum;
 	JFrame jf;
 	JLabel lb1;
 	JLabel lbName;
 	JLabel lbRows;
+	JLabel lbCols;
 	JLabel lbDisa;
 	JTextField txName;
 	JTextField txRows;
-	JButton btRows;
+	JTextField txCols;
 	JButton btGenerate;
 	JButton btSave;
 	JButton btCancel;
 	Seat [][] seatList;
 	JButton[][] seatButtonList;
-	JTextField[] sizeFieldList;
-	Container sizeSetGrid;
 	Container seatGrid;
-	GridLayout sizeSetLayout;
 	Handler hr = new Handler();
 	
 	public SeatCreator (ArrayList<Room> rl) {
 		this.rl = rl;
 	}
 	
-	/**
-	 * Initializes the user interface
-	 */
 	public void init() {
 		jf = new JFrame();
 		jf.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		lb1 = new JLabel("Welcome to the room creation system! Enter the room information below!");
+		lb1 = new JLabel("Welcome to the room creation system! Enter the room information, then press generate!");
 		lbName = new JLabel("Room name:");
 		lbRows = new JLabel("Number of rows of seats:");
-		lbDisa = new JLabel("Press Set Rows to display the number of rows in the room.");
+		lbCols = new JLabel("Number of columns of seats:");
+		lbDisa = new JLabel("[ ] are regular seats. { } are handicapped. Click to toggle between them.");
 		txName = new JTextField(15);
 		txRows = new JTextField(15);
-		btRows = new JButton("Set Rows");
+		txCols = new JTextField(15);
 		btGenerate = new JButton("Generate Room");
 		btSave = new JButton("Save Room");
 		btCancel = new JButton("Cancel");
-		sizeSetGrid = getContentPane();
 		seatGrid = getContentPane();
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 3;
@@ -97,21 +79,22 @@ public class SeatCreator extends JFrame {
 		c.gridx = 1;
 		c.gridy = 2;
 		jf.add(txRows, c);
+		c.gridx = 0;
+		c.gridy = 3;
+		jf.add(lbCols, c);
 		c.gridx = 1;
 		c.gridy = 3;
-		jf.add(btRows, c);
+		jf.add(txCols, c);
+		//c.weighty = 5;
 		c.gridx = 0;
 		c.gridy = 4;
 		c.gridwidth = 3;
 		jf.add(lbDisa, c);
 		c.gridx = 0;
 		c.gridy = 5;
-		c.gridwidth = 1;
-		jf.add(sizeSetGrid, c);
-		c.gridx = 1;
-		c.gridy = 5;
-		//c.gridwidth = 2;
+		
 		jf.add(seatGrid, c);
+		//c.weighty = 0;
 		c.gridx = 0;
 		c.gridy = 6;
 		c.gridwidth = 1;
@@ -122,7 +105,6 @@ public class SeatCreator extends JFrame {
 		c.gridx = 2;
 		c.gridy = 6;
 		jf.add(btCancel, c);
-		btRows.addActionListener(hr);
 		btGenerate.addActionListener(hr);
 		btSave.addActionListener(hr);
 		btCancel.addActionListener(hr);
@@ -140,70 +122,31 @@ public class SeatCreator extends JFrame {
 		
 		seatGrid.removeAll();
 		seatNum = 0;
-		int gridNum = 0;
 		
-		seatList = new Seat[rowNum][0];
-		seatButtonList = new JButton[rowNum][0];
-		GridBagLayout seatGridLayout = new GridBagLayout ();
+		rowNum = Integer.parseInt(txRows.getText());
+		colNum = Integer.parseInt(txCols.getText());
+		seatList = new Seat[rowNum][colNum];
+		seatButtonList = new JButton[rowNum][colNum];
+		GridLayout seatGridLayout = new GridLayout (rowNum, colNum + 1);
 		seatGrid.setLayout(seatGridLayout);
-		GridBagConstraints c = new GridBagConstraints();
-		int biggestRow = Integer.parseInt(sizeFieldList[0].getText());
 		
 		for (int i = 0; i < rowNum; i++) {
-			if (Integer.parseInt(sizeFieldList[i].getText()) > biggestRow) {
-				biggestRow = Integer.parseInt(sizeFieldList[i].getText());
-			}
-		}
-		
-		for (int i = 0; i < rowNum; i++) {
-			gridNum = Integer.parseInt(sizeFieldList[i].getText());
-			seatList[i] = new Seat[gridNum];
-			seatButtonList[i] = new JButton[gridNum];
-			c.gridy = i;
-			c.gridx = 0;
-			seatGrid.add(new JLabel("Row " + (rowNum - i) + ":"), c);
+			seatGrid.add(new JLabel("Row " + (rowNum - i) + ":"));
 			
-			if (gridNum < biggestRow) {
-				gridNum = (biggestRow - gridNum) / 2;
-			} else {
-				gridNum = 0;
-			}
-			
-			for (int j = 0; j < seatList[i].length; j++) {
-				c.gridx = j + 1 + gridNum;
+			for (int j = 0; j < colNum; j++) {
+				//Seat name format should include theater name, room name, row number/letter, and column number
 				seatList[i][j] = new Seat("Seat" + i + ":" + j,false);
 				seatButtonList[i][j] = new JButton(seatList[i][j].toString());
 				seatButtonList[i][j].addActionListener(hr);
-				seatGrid.add(seatButtonList[i][j], c);
+				seatGrid.add(seatButtonList[i][j]);
 				seatNum++;
 			}
 			System.out.println("Created row " + i);
 		}
 		
-		lbDisa.setText("[ ] are regular seats. { } are handicapped. Click to toggle between them.");
-		jf.setSize(600 + (biggestRow * 40), 500 + (rowNum * 20));
-		jf.setVisible(true);
+		seatNum = rowNum * colNum;
 		
-		return;
-	}
-	
-	public void SetRowSize() {
-		sizeSetGrid.removeAll();
-		seatGrid.removeAll();
-		
-		rowNum = Integer.parseInt(txRows.getText());
-		sizeFieldList = new JTextField[rowNum];
-		sizeSetLayout = new GridLayout (rowNum, 2);
-		sizeSetGrid.setLayout(sizeSetLayout);
-		
-		for (int i = 0; i < rowNum; i++) {
-			sizeSetGrid.add(new JLabel("Row " + (rowNum - i) + ":"));
-			sizeFieldList[i] = (new JTextField(3));
-			sizeSetGrid.add(sizeFieldList[i]);
-		}
-		
-		lbDisa.setText("Enter the number of seats in each row, the press Generate.");
-		jf.setSize(600, 500 + (rowNum * 20));
+		jf.setSize(600 + (colNum * 30), 500 + (rowNum * 20));
 		jf.setVisible(true);
 		
 		return;
@@ -213,53 +156,34 @@ public class SeatCreator extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource().equals(btRows)){
+			if(e.getSource().equals(btGenerate)) {
+				// Check if the last two fields are empty and have only numbers
 				try {
-					if (txRows.getText().equals("")) {
+					if (txRows.getText().equals("") || txCols.getText().equals("")) {
 						throw new NullPointerException();
 					}
 					Integer.parseInt(txRows.getText());
-					
-					SetRowSize();
-				}
-				catch (NumberFormatException d) {
-					d.getMessage();
-					System.out.println("Error. Row field does not contain letters.");
-					JOptionPane.showMessageDialog(rootPane, "Rows field can only contain numbers.");
-					return;
-				}
-				catch (NullPointerException d) {
-					d.getMessage();
-					System.out.println("Error. Row field text fields is empty.");
-					JOptionPane.showMessageDialog(rootPane, "Enter the number of rows in the room and then press Set Rows.");
-					return;
-				}
-				
-			} else if(e.getSource().equals(btGenerate)) {
-				// Check if the last two fields are empty and have only numbers
-				try {
-					for (int i = 0; i < sizeFieldList.length; i++) {
-						Integer.parseInt(sizeFieldList[i].getText());
-					}
-					
-					RoomCreationConceptWithGUI();
-					return;
+				    Integer.parseInt(txCols.getText());
+				    RoomCreationConceptWithGUI();
+				    return;
 				}
 				catch (NumberFormatException d) {
 					d.getMessage();
 					System.out.println("Error. Row or column fields do not contain letters.");
-					JOptionPane.showMessageDialog(rootPane, "Rows fields can only contain numbers.");
+					JOptionPane.showMessageDialog(rootPane, "Rows and Columns fields can only contain numbers.");
 					return;
 				}
 				catch (NullPointerException d) {
 					d.getMessage();
 					System.out.println("Error. One or more text fields is empty.");
-					JOptionPane.showMessageDialog(rootPane, "Enter the number of rows in the room and then press Set Rows.");
+					JOptionPane.showMessageDialog(rootPane, "One or more text fields is empty.");
 					return;
 				}
 				
 			} else if(e.getSource().equals(btSave)) {
-	
+				//Save and return the seatList
+				//Check if fields are empty. Maybe make this an exception
+				
 				try {
 					if (txName.getText().equals("")) {
 						throw new IllegalArgumentException();
