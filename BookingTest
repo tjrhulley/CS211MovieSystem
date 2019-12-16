@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+
+public class TesterBooking {
+	public static void main(String args[]) {
+		ArrayList<Room> myRoom = new ArrayList();
+		
+		String name = "NameOne";
+		Room rm = new Room(name, new Seat[5][6], 30,5,6);
+		Seat[][] sl = rm.getSeatList();
+		myRoom.add(rm);
+		SeatCreator seat = new SeatCreator(myRoom);
+		BookingCreator myBook = new BookingCreator(rm, "3pm");
+		myBook.init();
+	}
+}
