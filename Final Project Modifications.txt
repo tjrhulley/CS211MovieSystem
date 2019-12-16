@@ -1,0 +1,12 @@
+Here is a list of changes we have made to the project after the presentation.
+
+Timothy Hulley
+-Reworked the room creation system so that each row can have a different number of seats
+-Reworked the GUI so that it
+
+Sara Shabon
+-Added a filesystem for keeping track of customer tickets
+-Added several options for managing ticketing, movies, and rooms
+
+Abhisek Regmi
+-Fixed code so that it will assign seating arrangements when users order a ticket
