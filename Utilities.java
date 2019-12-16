@@ -37,32 +37,6 @@ public class Utilities {
         }
 
     }
-    
-    public static void writeMovieToFile(List data){
-
-        try {
-
-            Path file = Paths.get("movies.txt");
-            Files.write(file, (Iterable<? extends CharSequence>) data, StandardCharsets.UTF_8);
-            //Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    
-    public static void writeEmployeeToFile(List data){
-
-        try {
-
-            Path file = Paths.get("/Users/sarashabon/Desktop/employeeList.txt");
-            Files.write(file, (Iterable<? extends CharSequence>) data, StandardCharsets.UTF_8);
-            //Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
     public static String readFile(String path){

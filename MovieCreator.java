@@ -2,6 +2,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -78,6 +79,13 @@ public class MovieCreator extends JFrame{
 					}
 					
 					ml.add(new Movie(txName.getText(),txDescription.getText(),txPrice.getText(),Integer.parseInt(txLength.getText()),txShowTime.getText()));
+					//ADDED THIS SECTION --Sara 
+					String movieStr = "Movie name: " + txName.getText() + "\n" + 
+							"Ticket Price: " + txPrice.getText()+ "\n" +
+							"Movie length: " + txLength.getText()+ "\n" +
+							"Show Time: " + txShowTime.getText() + "\n";
+							Utilities.writeToFile(movieStr, "/Users/sarashabon/Desktop/movies.txt");
+							//end of added section -s
 					JOptionPane.showMessageDialog(jf, "Movie successfully saved.");
 
 					jf.dispose();
