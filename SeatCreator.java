@@ -259,8 +259,8 @@ public class SeatCreator extends JFrame {
 			} else if(e.getSource().equals(btSave)) {
 				//Save and return the seatList
 				//Check if fields are empty. Maybe make this an exception
-				Theater t = new Theater();
-				Room r = new Room(txName.getText(),null, seatNum, rowNum, colNum);
+//				Theater t = new Theater();
+//				Room r = new Room(txName.getText(),null, seatNum, rowNum, colNum);
 				try {
 					if (txName.getText().equals("")) {
 						throw new IllegalArgumentException();
@@ -272,11 +272,11 @@ public class SeatCreator extends JFrame {
 					
 					
 					//added this -sara
-					ArrayList<Room> roomList = new ArrayList<Room>();
-					roomList.add(r);
-					t.setRoomList(roomList);
-					
-					System.out.println("====sara ==" + roomList.get(0));
+//					ArrayList<Room> roomList = new ArrayList<Room>();
+//					roomList.add(r);
+//					t.setRoomList(roomList);
+//					
+//					System.out.println("====sara ==" + roomList.get(0));
 					
 					JOptionPane.showMessageDialog(rootPane, "Room layout successfully saved.");
 					System.out.println(rl.toString());
