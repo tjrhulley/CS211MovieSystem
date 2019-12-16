@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -16,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -103,64 +105,89 @@ public class MainFrame extends JFrame{
 				Object selection = JOptionPane.showInputDialog(null, "What would you like to do?", 
 						"Customer Options", JOptionPane.QUESTION_MESSAGE, null, 
 						options, initialSelection);
+				
 						if (selection== "Buy Ticket") {
+							Scanner s;
+							try {
+								s = new Scanner(new File("/Users/sarashabon/Desktop/movies.txt"));
+								List<String> list = new ArrayList<String>();
+								while (s.hasNext()){
+								    list.add(s.next());
+								    }
+								Object selection = JOptionPane.showInputDialog(null, "Choose A Movie To Watch", 
+										"Movie Options", JOptionPane.QUESTION_MESSAGE, null, 
+										list, null);
+								Object[] opts = {"   ", "9:00am", "3:00pm", "9:00pm"};
+								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
+										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+										BookingCreator myBook = new BookingCreator(selection.g,select);
+										//STUCk
+							}
+							catch (FileNotFoundException e1) {
+								e1.printStackTrace();
+							}
+							s.close();
+							}
+						
+							
+							
+							
 							//JOptionPane.showMessageDialog(null,  "TBD");
-							//creating movie panel 
-							JPanel movPan = new JPanel();
-							JRadioButton j1 = new JRadioButton("Shrek"); 
-							JRadioButton j2 = new JRadioButton("Finding Nemo");
-							JRadioButton j3 = new JRadioButton("Penguins of Madagascar");
-							movPan.add(j1);
-							movPan.add(j2);
-							movPan.add(j3);
-							//display movie options 
-							//Object[] movieOpts = movieList.toArray();
-//							Object movieChoice = JOptionPane.showInputDialog(null, "Choose Movie", "Movie Selection",
-//									JOptionPane.QUESTION_MESSAGE, null, movieOpts, null);
-							
-							Object newEmp = JOptionPane.showConfirmDialog(null, movPan, 
-									"Movie Options", JOptionPane.OK_CANCEL_OPTION);
-							
-							//BookingCreator newBooking = new BookingCreator();
-							
-							
-							Object[] opts = {"   ", "9:00am", "3:00pm", "9:00pm"};
-							if (j1.isSelected()) {
-								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
-										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
-	
-										if (select == opts[0]) {
-											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
-													"ERROR", JOptionPane.ERROR_MESSAGE);
-										}	 
-								double confirmation = Math.random()*100000 ;
-								confirmationNums.add(confirmation);
-								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
-							}
-							else if (j2.isSelected()) {
-								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
-										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
-	
-										if (select == opts[0]) {
-											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
-													"ERROR", JOptionPane.ERROR_MESSAGE);
-										}	 
-								double confirmation =  Math.random()*100000 ;
-								confirmationNums.add(confirmation);
-								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
-							}
-							else if (j3.isSelected()){
-								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
-										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
-	
-										if (select == opts[0]) {
-											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
-													"ERROR", JOptionPane.ERROR_MESSAGE);
-										}	 
-								double confirmation = Math.random()* 100000;
-								confirmationNums.add(confirmation);
-								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
-							}
+////							//creating movie panel 
+////							JPanel movPan = new JPanel();
+////							JRadioButton j1 = new JRadioButton("Shrek"); 
+////							JRadioButton j2 = new JRadioButton("Finding Nemo");
+////							JRadioButton j3 = new JRadioButton("Penguins of Madagascar");
+////							movPan.add(j1);
+////							movPan.add(j2);
+////							movPan.add(j3);
+////							//display movie options 
+////							//Object[] movieOpts = movieList.toArray();
+//////							Object movieChoice = JOptionPane.showInputDialog(null, "Choose Movie", "Movie Selection",
+//////									JOptionPane.QUESTION_MESSAGE, null, movieOpts, null);
+////							
+////							Object newEmp = JOptionPane.showConfirmDialog(null, movPan, 
+////									"Movie Options", JOptionPane.OK_CANCEL_OPTION);
+//							
+//							//BookingCreator newBooking = new BookingCreator();
+//							
+//							//======================
+//							Object[] opts = {"   ", "9:00am", "3:00pm", "9:00pm"};
+//							Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
+//									JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+////	
+//										if (select == opts[0]) {
+//											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
+//													"ERROR", JOptionPane.ERROR_MESSAGE);
+//										}	 
+//								double confirmation = Math.random()*100000 ;
+//								confirmationNums.add(confirmation);
+//								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
+//							}
+//							else if (j2.isSelected()) {
+//								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
+//										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+//	
+//										if (select == opts[0]) {
+//											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
+//													"ERROR", JOptionPane.ERROR_MESSAGE);
+//										}	 
+//								double confirmation =  Math.random()*100000 ;
+//								confirmationNums.add(confirmation);
+//								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
+//							}
+//							else if (j3.isSelected()){
+//								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
+//										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
+//	
+//										if (select == opts[0]) {
+//											JOptionPane.showMessageDialog(new JFrame(), "Make a selection", 
+//													"ERROR", JOptionPane.ERROR_MESSAGE);
+//										}	 
+//								double confirmation = Math.random()* 100000;
+//								confirmationNums.add(confirmation);
+//								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
+//							}
 										
 						}
 						else if (selection == "Cancel Ticket") {
@@ -325,7 +352,7 @@ public class MainFrame extends JFrame{
 										}
 										else if (selection == "View Current Movies") {
 											//JOptionPane.showMessageDialog(null, "Employee Successfully Created");
-											JPanel moviePan = new JPanel();
+											//JPanel moviePan = new JPanel();
 									
 											//movie.setIcon(new ImageIcon(getClass().getResource("/resources/puppy.png")));
 											//try {
