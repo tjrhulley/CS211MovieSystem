@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -109,25 +110,28 @@ public class MainFrame extends JFrame{
 						if (selection== "Buy Ticket") {
 							Scanner s;
 							try {
-								s = new Scanner(new File("/Users/sarashabon/Desktop/movies.txt"));
-								List<String> list = new ArrayList<String>();
+								s = new Scanner(new File("/test/movies.txt"));
+								java.util.List<String> list = Files.readAllLines(new File("movies.txt").toPath(), Charset.defaultCharset());
 								while (s.hasNext()){
 								    list.add(s.next());
 								    }
-								Object selection = JOptionPane.showInputDialog(null, "Choose A Movie To Watch", 
+								Object selection1 = JOptionPane.showInputDialog(null, "Choose A Movie To Watch", 
 										"Movie Options", JOptionPane.QUESTION_MESSAGE, null, 
-										list, null);
+										list.toArray(), null);
 								Object[] opts = {"   ", "9:00am", "3:00pm", "9:00pm"};
 								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
 										JOptionPane.QUESTION_MESSAGE, null, opts, opts[0]);
-										BookingCreator myBook = new BookingCreator(selection.g,select);
-										//STUCk
+										//BookingCreator myBook = new BookingCreator(selection1.g,select);
+									s.close();	//Pass over to Abhisek's code 
 							}
 							catch (FileNotFoundException e1) {
 								e1.printStackTrace();
+							} catch (IOException e1) {
+								
+								e1.printStackTrace();
 							}
-							s.close();
-							}
+							
+						}
 						
 							
 							
@@ -189,7 +193,7 @@ public class MainFrame extends JFrame{
 //								JOptionPane.showMessageDialog(null,  "Your Ticket Confirmation number is: " + confirmation +"\n SAVE THIS ");
 //							}
 										
-						}
+						
 						else if (selection == "Cancel Ticket") {
 							//ASK FOR CONFIRMATION NUMBER AND CHECK ARRAYLIST IF IT IS THERE 
 							JOptionPane.showMessageDialog(new JFrame(), "Please see Customer Services", 
@@ -254,12 +258,9 @@ public class MainFrame extends JFrame{
 				String managerPass = (String)JOptionPane.showInputDialog(c, "Enter manager password:\n", 
 						"Password", JOptionPane.PLAIN_MESSAGE, null, null, "");
 				//check if manager password is correct
-				//List to keep track of the employees working 
-				//ArrayList<String> employeeList = new ArrayList<String>();
-				//List to keep track of the managers working 
-				//ArrayList<String> managerList = new ArrayList<String>();
+			
 							if (managerPass.contentEquals("manager")) {
-								//JOptionPane.showMessageDialog(null, "Good job!");
+								
 								Object[] options = {"   ", "Create Employee", "Show Current Employees", "Create Room", 
 										"Show Current Rooms", "Create New Manager", "Show Current Managers", "Add Movie", "Add Movie To Room", 
 										"View Current Movies"};
@@ -283,7 +284,7 @@ public class MainFrame extends JFrame{
 												
 											//add new employee first and last name to the arraylist
 													employeeList.add(first.getText() + " " + last.getText() + "\n");
-													Utilities.writeToFile(employeeList, "/Users/sarashabon/Desktop/employeeList.txt");
+													Utilities.writeToFile(employeeList, "/test/employeeList.txt");
 													//JLabel trial = new JLabel(); 
 													JOptionPane.showMessageDialog(null, "Employee Successfully Created");
 											//employee list somewhere 
@@ -293,7 +294,7 @@ public class MainFrame extends JFrame{
 											//JOptionPane.showMessageDialog(null, Arrays.deepToString(employeeList.toArray()));
 											//need to retrieve this from txt 
 											
-											JOptionPane.showMessageDialog(null, Utilities.readFile("/Users/sarashabon/Desktop/employeeList.txt"));
+											JOptionPane.showMessageDialog(null, Utilities.readFile("/test/Desktop/employeeList.txt"));
 										}
 										
 										
@@ -301,14 +302,14 @@ public class MainFrame extends JFrame{
 											//direct to timothy code 
 											Theater rm = new Theater();
 											rm.addRoom();
-										
+											
 											//theaterCount++;
 											
 										}
 										
 										else if (selection == "Show Current Rooms") {
-											//display the arraylist made in timothy code 
-											JOptionPane.showMessageDialog(null,  Utilities.readFile("/Users/sarashabon/Desktop/room.txt"));
+										
+											JOptionPane.showMessageDialog(null,  Utilities.readFile("/test/room.txt"));
 											//JOptionPane.showMessageDialog(null, Arrays.deepToString(Theater.getRoomList().toArray()));
 										}
 										
@@ -327,12 +328,12 @@ public class MainFrame extends JFrame{
 													"Enter First and Last Name", JOptionPane.OK_CANCEL_OPTION);
 									
 											managerList.add(first.getText() + " " + last.getText()+ "\n");
-											Utilities.writeToFile(managerList, "/Users/sarashabon/Desktop/managerList.txt");
+											Utilities.writeToFile(managerList, "/test/managerList.txt");
 											//System.out.println(first.getText() +" " + last.getText());
 											JOptionPane.showMessageDialog(null, "Manager Successfully Created");
 										}
 										else if (selection == "Show Current Managers") {
-											JOptionPane.showMessageDialog(null, Utilities.readFile("/Users/sarashabon/Desktop/managerList.txt"));
+											JOptionPane.showMessageDialog(null, Utilities.readFile("/test/managerList.txt"));
 										}
 										else if (selection == "Add Movie") {
 											Theater th = new Theater();
@@ -370,7 +371,7 @@ public class MainFrame extends JFrame{
 											//movie.add(myImageIcon);
 										
 											
-											JOptionPane.showMessageDialog(null, Utilities.readFile("/Users/sarashabon/Desktop/movies.txt"));
+											JOptionPane.showMessageDialog(null, Utilities.readFile("/test/movies.txt"));
 											
 											
 											//JOptionPane.showMessageDialog(new JFrame(), "No Movies Yet",
