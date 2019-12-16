@@ -1,25 +1,56 @@
 public class Booking {
-	protected String name;
-	protected int ticket;
-	protected int HTicket;
-	public Booking (String name, int ticket, int HTicket) {
-		this.name = name;
-		this.ticket = ticket;
-		this.HTicket = HTicket;
+	protected Room rm;
+	protected String time;
+	protected int nbrReg;
+	protected int nbrHandy;
+	int count;
+	
+	public Booking(Room rm, String time, int nbrReg, int nbrHandy) {
+		this.rm = rm;
+		this.time = time;
+		this.nbrReg = nbrReg;
+		this.nbrHandy = nbrHandy;
+		count = 0;
+	}
+	public Room getRoom() {
+		return this.rm;
 	}
 	
-	public String getName() {
-		return this.name;
+	public String getTime() {
+		return this.time;
+	}
+	public int getnbrReg() {
+		return this.nbrReg;
+	}
+	public int getnbrHand() {
+		return this.nbrHandy;
+	}
+	public void resetSearch() {
+		for(int i = 0; i < rm.getSeatList().length; i++) {
+			for(int j = 0; j < rm.getSeatList()[i].length; j++) {
+				if(rm.getSeatList()[i][j].isTaken()) {
+					rm.getSeatList()[i][j].toggleTaken();
+				}
+			}
+		}
 	}
 	
-	public int getTicket() {
-		return this.ticket;
-	}
-	
-	public int getHTicket() {
-		return this.HTicket;
-	}
-	public String toString() {
-		return ("Testing to check");
+	public Room getSeats() {
+		for(int i = 0; i < rm.getSeatList().length; i++) {
+			for(int j = 0; j < rm.getSeatList()[i].length; j++) {
+				if(rm.getSeatList()[i][j].isTaken()){
+					count++;
+					if(count == nbrReg + nbrHandy) {
+						rm.getSeatList()[i][j].setTaken(true);
+					}
+				}
+				else {
+					count = 0;
+					resetSearch();
+				}
+			}
+		}
+		return rm;
+		
 	}
 }
