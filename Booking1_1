@@ -41,7 +41,7 @@ public class Booking {
 				if(rm.seatList[i][j].equals("[ ]")){
 					count++;
 					if(count == nbrReg + nbrHandy) {
-						rm.seatList[i][j].isDisabled() = ("[O]");
+						rm.seatList[i][j] = ("[O]");
 					}
 				}
 				else {
