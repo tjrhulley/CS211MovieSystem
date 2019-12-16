@@ -1,12 +1,8 @@
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,75 +10,105 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class BookingCreator extends JFrame{
 	Room rm;
-	String time;
-	JLabel lbl;
-	JLabel tLbl;
-	JLabel tHlbl;
-	JTextField txLbl;
-	JTextField txHlbl;
-	JButton btGenerate;
+	JFrame jf;
+	JLabel lb1;
+	JLabel lbName;
+	JLabel lbTicket;
+	JLabel lbHTicket;
+	JTextField txName;
+	JTextField txTicket;
+	JTextField txHTicket;
 	JButton btSave;
 	JButton btCancel;
-	Container seatGrid;
-	JFrame jf;
+	int x;
+	int y;
+	
 	Handler hr = new Handler();
 	
-	public BookingCreator(Room rm, String time) {
-		this.rm = rm;
-		this.time = time;
+	public BookingCreator () {
+		
 	}
+	
 	
 	public void init() {
 		jf = new JFrame();
-		jf.setLayout(new GridBagLayout());
+		jf = new JFrame();
+		jf.setLayout(new FlowLayout(6,2,2));
 		GridBagConstraints c = new GridBagConstraints();
-		lbl = new JLabel("Welcome to Ticket Booking! /n "
-				+ "Please Select how many tickets you would like to purchase then click generate. /n"
-				+ "Or simply click on the empty seats to select the seats you'd like to book.");
-		tLbl = new JLabel("Please Enter how many regular seats you would like: ");
-		tHlbl = new JLabel("Please Enter how many handycap seats you would like: ");
-		txLbl = new JTextField(15);
-		txLbl = new JTextField(15);
-		btGenerate = new JButton("Generate Room");
-		btSave = new JButton("Save Room");
+		lb1 = new JLabel("Welcome to the ticket booking system! Please Enter your name and tickets you'd like to purchase. \n");
+		lbName = new JLabel("Name: ");
+		lbTicket = new JLabel("Number of tickets you'd like to purchase: ");
+		lbHTicket = new JLabel("Number of tickets for handicap members: ");
+		txName = new JTextField(15);
+		txTicket = new JTextField(15);
+		txHTicket = new JTextField(15);
+		btSave = new JButton("Buy tickets");
 		btCancel = new JButton("Cancel");
-		seatGrid = getContentPane();
 		c.fill = GridBagConstraints.HORIZONTAL;
-		btGenerate.addActionListener(hr);
+		
+		jf.add(lb1);
+		jf.add(lbName);
+		jf.add(txName);
+		jf.add(lbTicket);
+		jf.add(txTicket);
+		jf.add(lbHTicket);
+		jf.add(txHTicket);
+		jf.add(btSave);
+		jf.add(btCancel);
+		
 		btSave.addActionListener(hr);
 		btCancel.addActionListener(hr);
 		jf.setSize(600, 500);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setVisible(true);
-		
 	}
 	public class Handler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource().equals(btGenerate)) {
+			 x = Integer.parseInt(txTicket.getText());
+		     y = Integer.parseInt(txHTicket.getText());
+		     Booking book = new Booking(txTicket.getText(), x, y);
+			if(e.getSource().equals(btSave)) {
+				
 				try {
-					if(txLbl.getText().equals("") || txHlbl.getText().equals("")) {
+					if (txName.getText().equals("") || txTicket.getText().equals("") || txHTicket.getText().equals("")) {
 						throw new NullPointerException();
 					}
-					Integer.parseInt(txLbl.getText());
-				    Integer.parseInt(txHlbl.getText());
-				    rm.toString();
-				    return;
+				    
+					jf.dispose();
+					jf.setVisible(false);
+					return;
+					//Close the window
 				}
-					catch (NumberFormatException d) {
-						d.getMessage();
-						System.out.println("Error. Please enter number of tickets for both fields. Enter 0 if for no tickets.");
-						JOptionPane.showMessageDialog(rootPane, "Rows and Columns fields can only contain numbers.");
-						return;
-					}
+				catch (NullPointerException d) {
+					d.getMessage();
+					System.out.println("Error. Text fields are empty");
+					JOptionPane.showMessageDialog(jf, "One or more text fields is empty.");
+					return;
 				}
+				catch (NumberFormatException d) {
+					d.getMessage();
+					System.out.println("Error. Length field do not contain letters.");
+					JOptionPane.showMessageDialog(jf, "Length field can only contain numbers.");
+					return;
+				}
+			} else {
+				//rm.setBooking(new Booking(txName.getText(),x, y));
+				JOptionPane.showMessageDialog(jf, "Finding optimal seating " + rm.getName() + ".");
+				//Close button
+				jf.dispose();
+				jf.setVisible(false);
+				return;
 			}
-			
 		}
+		
 	}
 	
-	
-	
+
+}

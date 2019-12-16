@@ -1,46 +1,25 @@
 public class Booking {
-	protected Room rm;
-	protected String time;
-	protected int nbrReg;
-	protected int nbrHandy;
-	int count;
-	
-	public Booking(Room rm, String time, int nbrReg, int nbrHandy) {
-		this.rm = rm;
-		this.time = time;
-		this.nbrReg = nbrReg;
-		this.nbrHandy = nbrHandy;
-		count = 0;
-	}
-	public Room getRoom() {
-		return this.rm;
+	protected String name;
+	protected int ticket;
+	protected int HTicket;
+	public Booking (String name, int ticket, int HTicket) {
+		this.name = name;
+		this.ticket = ticket;
+		this.HTicket = HTicket;
 	}
 	
-	public String getTime() {
-		return this.time;
-	}
-	public int getnbrReg() {
-		return this.nbrReg;
-	}
-	public int getnbrHand() {
-		return this.nbrHandy;
+	public String getName() {
+		return this.name;
 	}
 	
-	public Room getSeats() {
-		for(int i = 0; i < rm.getSeatList().length; i++) {
-			for(int j = 0; j < rm.getSeatList()[i].length; j++) {
-				if(rm.getSeatList()[i][j].equals("[ ]")){
-					count++;
-					if(count == nbrReg + nbrHandy) {
-						
-					}
-				}
-				else {
-					count = 0;
-				}
-			}
-		}
-		return rm;
-		
+	public int getTicket() {
+		return this.ticket;
+	}
+	
+	public int getHTicket() {
+		return this.HTicket;
+	}
+	public String toString() {
+		return ("Testing to check");
 	}
 }

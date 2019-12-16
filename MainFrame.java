@@ -4,11 +4,16 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -34,7 +39,7 @@ public class MainFrame extends JFrame{
 	private JPasswordField passwordField;
 	protected ArrayList<String> employeeList = new ArrayList<String>();
 	protected ArrayList<String> managerList = new ArrayList<String>();
-	protected ArrayList<String> movieList = new ArrayList<String>();
+	//protected ArrayList<String> movieList = new ArrayList<String>();
 	protected ArrayList<Double> confirmationNums = new ArrayList<Double>();
 	private int theaterCount;
 	Object[] possibilities = {'1', '2', '3', '4'};
@@ -109,8 +114,16 @@ public class MainFrame extends JFrame{
 							movPan.add(j2);
 							movPan.add(j3);
 							//display movie options 
+							//Object[] movieOpts = movieList.toArray();
+//							Object movieChoice = JOptionPane.showInputDialog(null, "Choose Movie", "Movie Selection",
+//									JOptionPane.QUESTION_MESSAGE, null, movieOpts, null);
+							
 							Object newEmp = JOptionPane.showConfirmDialog(null, movPan, 
 									"Movie Options", JOptionPane.OK_CANCEL_OPTION);
+							
+							//BookingCreator newBooking = new BookingCreator();
+							
+							
 							Object[] opts = {"   ", "9:00am", "3:00pm", "9:00pm"};
 							if (j1.isSelected()) {
 								Object select = JOptionPane.showInputDialog(null, "Choose Show Time", "Show Time Selection",
@@ -186,7 +199,8 @@ public class MainFrame extends JFrame{
 										if (selection == "Cancel Ticket") {
 											String confirmation = (String)JOptionPane.showInputDialog(c, "Enter ticket confirmation code:\n", 
 													"Cancel Customer Ticket", JOptionPane.PLAIN_MESSAGE, null, null, "");
-													if (confirmationNums.contains(confirmation)) {
+												int index = confirmationNums.indexOf(confirmation);
+														if (confirmationNums.contains(index)) {
 														confirmationNums.remove(confirmation);
 														JOptionPane.showMessageDialog(null,  "Ticket Successfully Cancelled");
 													}
@@ -225,8 +239,8 @@ public class MainFrame extends JFrame{
 				//ArrayList<String> managerList = new ArrayList<String>();
 							if (managerPass.contentEquals("manager")) {
 								//JOptionPane.showMessageDialog(null, "Good job!");
-								Object[] options = {"   ", "Create Employee", "Show Current Employees", "Create Theater", 
-										"Show Current Theaters", "Create New Manager", "Show Current Managers", "Add Movie", "View Current Movies"};
+								Object[] options = {"   ", "Create Employee", "Show Current Employees", "Remove Employee", "Create Room", 
+										"Show Current Rooms", "Create New Manager", "Show Current Managers", "Add Movie", "View Current Movies"};
 								String initialSelection = "   ";
 								Object selection = JOptionPane.showInputDialog(null, "What would you like to do?", 
 										"Manager Options", JOptionPane.QUESTION_MESSAGE, null, 
@@ -247,25 +261,61 @@ public class MainFrame extends JFrame{
 												
 											//add new employee first and last name to the arraylist
 													employeeList.add(first.getText() + " " + last.getText() + "\n");
+													Utilities.writeEmployeeToFile(employeeList);
 													//JLabel trial = new JLabel(); 
 													JOptionPane.showMessageDialog(null, "Employee Successfully Created");
 											//employee list somewhere 
 											//create a method to create employee and add to arraylist 
 										}
 										else if (selection == "Show Current Employees") {
-											JOptionPane.showMessageDialog(null, Arrays.deepToString(employeeList.toArray()));
+											//JOptionPane.showMessageDialog(null, Arrays.deepToString(employeeList.toArray()));
+											//need to retrieve this from txt 
+											String contents = Utilities.readFile("/Users/sarashabon/Desktop/employeeList.txt");
+											System.out.println("-----content ===" + contents);
+											JOptionPane.showMessageDialog(null, Utilities.readFile("/Users/sarashabon/Desktop/employeeList.txt"));
 										}
 										
-										else if (selection == "Create Theater") {
+										else if (selection == "Remove Employee") {
+											JPanel empPanel = new JPanel();
+											JTextField first = new JTextField(20);
+											JTextField last = new JTextField(20);
+											empPanel.add(new JLabel("First Name: "));
+											empPanel.add(first);
+											empPanel.add(Box.createHorizontalStrut(15));
+											empPanel.add(new JLabel("Last Name: "));
+											empPanel.add(last);
+											Object remEmp = JOptionPane.showConfirmDialog(null, empPanel, 
+													"Enter First and Last Name", JOptionPane.OK_CANCEL_OPTION);
+												if (employeeList.contains(remEmp)){
+													int index = employeeList.indexOf(remEmp);
+													employeeList.remove(index);
+												}
+												else {
+													JOptionPane.showMessageDialog(new JFrame(), "Employee Does Not Exist", 
+															"ERROR", JOptionPane.ERROR_MESSAGE);
+												}
+										}
+										else if (selection == "Create Room") {
 											//direct to timothy code 
 											Theater rm = new Theater();
 											rm.addRoom();
+											ArrayList<Room> rooms = rm.getRoomList();
+											System.out.println("====milan===" + rooms.get(0));
+//											for (Room r: rooms) {
+//												
+//												//System.out.println("name=====" + r.getName());
+//											}
+											Utilities.writeToFile(rooms, "/Users/sarashabon/Desktop/room.txt");
+											
+											//keep track of theater count to return for 
 											theaterCount++;
+											
 										}
 										
-										else if (selection == "Show Current Theaters") {
+										else if (selection == "Show Current Rooms") {
 											//display the arraylist made in timothy code 
-											JOptionPane.showMessageDialog(null, "Amount of theaters: " + theaterCount);
+											JOptionPane.showMessageDialog(null,  Utilities.readFile("/Users/sarashabon/Desktop/room.txt"));
+											//JOptionPane.showMessageDialog(null, Arrays.deepToString(Theater.getRoomList().toArray()));
 										}
 										
 										else if (selection == "Create New Manager") {
@@ -291,11 +341,14 @@ public class MainFrame extends JFrame{
 										}
 										else if(selection == "Add Movie") {
 											
-											Seat[][] dave = new Seat[5][3];
-											Room rm = new Room ("ROOM", dave, 10);
-											Theater th = new Theater(rm);
-											th.addMovie(rm);
-									
+											Room r1 = new Room("Room A", new Seat[4][3], 12,4,3);
+											Room r2 = new Room("Room B", new Seat[4][3], 12,4,3);
+											Movie m1 = new Movie("Fateful Findings", "The best movie ever", "3.99", 120, "5pm");
+											Movie m2 = new Movie("Twisted Pair", "The best movie ever", "3.99", 120, "5pm");
+											Movie m3 = new Movie("I am here....now", "The best movie ever", "3.99", 120, "5pm");
+											
+											Theater th = new Theater(r1,r2,m1,m2,m3);
+											th.assignMovie();
 											
 										}
 										else if (selection == "View Current Movies") {
@@ -316,18 +369,33 @@ public class MainFrame extends JFrame{
 ////											}
 											//JLabel movie = new JLabel(myImageIcon);
 											//movie.add(myImageIcon);
-											JOptionPane.showMessageDialog(null,  "Shrek, Finding Nemo, Penguins of Madagascar");
+										
+											
+											JOptionPane.showMessageDialog(null, Utilities.readFile("movies.txt"));
+											
+											
 											//JOptionPane.showMessageDialog(new JFrame(), "No Movies Yet",
 													//"ERROR", JOptionPane.ERROR_MESSAGE);
 											//JOptionPane.showMessageDialog(null, "Employee Successfully Created");
 											
 										}
+										
 							}
 							else {
 								JOptionPane.showMessageDialog(new JFrame(), "Incorrect Password, Try Again",
 										"ERROR", JOptionPane.ERROR_MESSAGE);
 							}
 			}
+
+//			private void writeToFile(String room) {
+//				try {
+//					Path file = Paths.get("data.txt");
+//					Files.write(file,  (Iterable<? extends CharSequence>) rooms, StandardCharsets.UTF_8);
+//				}
+//				catch(IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
 		
 		});
 		

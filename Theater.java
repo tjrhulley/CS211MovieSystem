@@ -25,6 +25,11 @@ public class Theater {
 	 * A list of each room in the theater.
 	 */
 	private ArrayList<Room> roomList = new ArrayList<Room>();
+	//added this -sara
+	public void setRoomList(ArrayList<Room> roomList) {
+		this.roomList = roomList;
+	}
+
 	private ArrayList<Movie> movieList = new ArrayList<Movie>();
 	
 	/**
@@ -65,7 +70,7 @@ public class Theater {
 			SeatCreator sc = new SeatCreator(roomList);
 			sc.init();
 		} else {
-			SeatCreatorV2 sc = new SeatCreatorV2(roomList);
+			SeatCreator sc = new SeatCreator(roomList);
 			sc.init();
 		}
 	}
