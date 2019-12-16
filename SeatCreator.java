@@ -6,6 +6,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,6 +33,7 @@ public class SeatCreator extends JFrame {
 	 */
 	int rowNum;
 	int colNum; //DELETE LATER IF IT WORKS
+
 	JFrame jf;
 	JLabel lb1;
 	JLabel lbName;
@@ -257,10 +259,7 @@ public class SeatCreator extends JFrame {
 				}
 				
 			} else if(e.getSource().equals(btSave)) {
-				//Save and return the seatList
-				//Check if fields are empty. Maybe make this an exception
-//				Theater t = new Theater();
-//				Room r = new Room(txName.getText(),null, seatNum, rowNum, colNum);
+	
 				try {
 					if (txName.getText().equals("")) {
 						throw new IllegalArgumentException();
@@ -270,13 +269,14 @@ public class SeatCreator extends JFrame {
 					}
 					rl.add(new Room(txName.getText(),seatList,seatNum,rowNum,colNum));
 					
-					
-					//added this -sara
-//					ArrayList<Room> roomList = new ArrayList<Room>();
-//					roomList.add(r);
-//					t.setRoomList(roomList);
-//					
-//					System.out.println("====sara ==" + roomList.get(0));
+					//ADDED THIS SECTION ----SARA 
+					String roomStr = "Theater name: " + txName.getText() + "\n" + 
+					"Handicap seating arrangement: " + Arrays.deepToString(seatList)+ "\n" +
+					"Seat Num: " + seatNum+ "\n" +
+					"Row Num: " + rowNum + "\n"+ 
+					"Column Num: " + colNum + "\n";
+					Utilities.writeToFile(roomStr, "/Users/sarashabon/Desktop/room.txt");
+					//end of new addition 
 					
 					JOptionPane.showMessageDialog(rootPane, "Room layout successfully saved.");
 					System.out.println(rl.toString());

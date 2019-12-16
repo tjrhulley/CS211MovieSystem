@@ -27,9 +27,9 @@ public class Utilities {
     }
 
 
-    public static void writeToFile(String data) {
+    public static void writeToFile(String data, String path) {
 
-        Path file = Paths.get("/Users/sarashabon/Desktop/room.txt");
+        Path file = Paths.get(path);
         try {
             Files.write(file, Collections.singleton(data), StandardCharsets.UTF_8);
         } catch (IOException e) {

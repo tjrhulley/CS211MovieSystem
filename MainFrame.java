@@ -299,13 +299,14 @@ public class MainFrame extends JFrame{
 											//direct to timothy code 
 											Theater rm = new Theater();
 											rm.addRoom();
-											ArrayList<Room> rooms = rm.getRoomList();
-											System.out.println("====milan===" + rooms.get(0));
+//											ArrayList<Room> rooms = rm.getRoomList();
+//											rm.get
+											//System.out.println("====milan===" + rooms.get(0));
 //											for (Room r: rooms) {
 //												
 //												//System.out.println("name=====" + r.getName());
 //											}
-											Utilities.writeToFile(rooms, "/Users/sarashabon/Desktop/room.txt");
+											//Utilities.writeToFile(rooms, "/Users/sarashabon/Desktop/room.txt");
 											
 											//keep track of theater count to return for 
 											theaterCount++;
